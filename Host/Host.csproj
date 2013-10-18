@@ -59,13 +59,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Controls\Controls.fsproj">
-      <Project>{70305f93-4c66-43b9-bdf0-19ff3b9d3ac0}</Project>
-      <Name>Controls</Name>
-    </ProjectReference>
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <ProjectReference Include="..\Controls\Controls.fsproj">
+      <Project>{20198abe-0a4e-4aa4-a9f8-51189e851dfe}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -18,17 +18,18 @@ type EntryPoint() =
 [<Sealed>]
 type Website() =
     interface IWebsite<Action> with
-        member __.Sitelet =
-            Sitelet.Infer (fun Home ->
-                Content.PageContent (fun _ ->
-                    {
-                        Page.Default with
-                            Title = Some "WebSharper Controls"
-                            Body = [Div [new EntryPoint()]]
-                    }
-                )
-            )
-        member __.Actions = []
+        member x.Sitelet =
+            Sitelet.Infer <|
+                function
+                | Home ->
+                    Content.PageContent (fun _ ->
+                        {
+                            Page.Default with
+                                Title = Some "WebSharper Controls"
+                                Body = [Div [new EntryPoint()]]
+                        }
+                    )
+        member x.Actions = []
 
 [<assembly: Website(typeof<Website>)>]
 do ()
