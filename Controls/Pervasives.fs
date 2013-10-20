@@ -1,4 +1,13 @@
 ﻿[<AutoOpen>]
 module Controls.Pervasives
 
-type JS = IntelliFactory.WebSharper.Core.Attributes.JavaScriptAttribute
+open IntelliFactory.WebSharper
+open IntelliFactory.WebSharper.Html
+
+type JS = JavaScriptAttribute
+type RPC = RemoteAttribute
+
+[<AutoOpen; JS>]
+module Operators =
+    let (++) (e: Element) text = e -- Text text
+    let (|+) (e: Element) clazz = e.AddClass clazz; e

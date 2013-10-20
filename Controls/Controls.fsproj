@@ -46,6 +46,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Compile Include="Pervasives.fs" />
+    <Compile Include="Data.fs" />
     <Compile Include="Client.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>

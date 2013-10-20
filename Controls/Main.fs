@@ -27,6 +27,7 @@ type Website() =
                             Page.Default with
                                 Title = Some "WebSharper Controls"
                                 Body = [Div [new EntryPoint()]]
+                                Head = [Link [Rel "stylesheet"; HRef "Default.css"]]
                         }
                     )
         member x.Actions = []

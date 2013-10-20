@@ -1,0 +1,9 @@
+﻿table {
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #c4c4c4;
+}
+
+th, td {
+    border: 1px solid #c4c4c4;
+}
