@@ -8,6 +8,8 @@ open IntelliFactory.WebSharper.Piglets
 module V = Piglet.Validation
 module C = Controls
 
+open Data.Philosopher
+open Data.Tea
 open Data
 
 let philoPiglet init =
@@ -22,13 +24,8 @@ let renderPhilosopher fn ln age died =
         TD [C.Input fn]
         TD [C.Input ln]
         TD [C.Input (Stream.Map string int age)]
-        TD [
-            C.Input
-                (died |> Stream.Map
-                    (fun x -> x.ToEcma().ToLocaleString())
-                    (fun x -> (EcmaScript.Date x).ToDotNet()))
-        ]
-        TD [] |> C.ShowString died swedish
+        TD [C.Input (died |> Stream.Map Date.swedishLong (fun x -> (EcmaScript.Date x).ToDotNet()))]
+        TD [] |> C.ShowString died Date.swedish
     ]
 
 let renderPhilosophers philosophers =
@@ -51,17 +48,6 @@ let teaPiglet init =
     <*> Piglet.Yield init.Kind
     <*> Piglet.Yield init.Night
     <*> Piglet.Yield init.Price
-
-let renderKind = function
-    | Black -> "Black"
-    | Green -> "Green"
-    | Oolong -> "Oolong"
-
-let parseKind = function
-    | "Black" -> Black
-    | "Green" -> Green
-    | "Oolong" -> Oolong
-    | kind -> failwith ("Invalid kind: " + kind)
 
 let renderTea name kind nighttime price =
     TR [
@@ -93,9 +79,7 @@ let renderTeas teas =
 
 let main () =
     Div [
-        philosophers()
-        |> renderPhilosophers
+        Philosopher.all() |> renderPhilosophers
         Br []
-        teas()
-        |> renderTeas
+        Tea.all() |> renderTeas
     ]
