@@ -61,6 +61,20 @@ let renderTea name kind nighttime price =
         ]
         TD [C.CheckBox nighttime]
         TD [C.Input (price |> Stream.Map string (fun x -> (EcmaScript.Number x).ToDotNet()))]
+        TD [] |> C.ShowString price string
+    ]
+
+let transpose (table: Element) =
+    let body = table.Dom.FirstChild
+    let rows = body.ChildNodes
+    let cols = rows.[0].ChildNodes.Length
+
+    Table [
+        for j = 0 to cols - 1 do
+            let row = TR []
+            for i = 0 to rows.Length - 1 do
+                row.Append (rows.[i].ChildNodes.[j].CloneNode(true))
+            yield row
     ]
 
 let renderTeas teas =
@@ -70,11 +84,17 @@ let renderTeas teas =
     <*> Piglet.ManyInit teas zero teaPiglet
     |> Piglet.Render (fun teas ->
         Table [
-            [""; "Kind"; "Nighttime"; "Price"]
+            [""; "Kind"; "Nighttime"; "Price"; "Fromatted"]
             |> List.map (fun lbl -> TH [Text lbl])
             |> TR
         ]
         |> C.RenderMany teas (fun _ -> renderTea)
+        |> fun table ->
+            Div [
+                table
+                Br[]
+                transpose table
+            ]
     )
 
 let main () =
