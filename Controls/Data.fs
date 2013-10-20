@@ -2,16 +2,15 @@
 
 type Philosopher =
     {
-        Name: string
+        FirstName: string
         LastName: string
         Age: int
         Died: System.DateTime
     }
 
-[<JS>]
 let philosopher name last age year month day =
     {
-        Name = name
+        FirstName = name
         LastName = last
         Age = age
         Died = System.DateTime(year, month, day)
@@ -29,3 +28,23 @@ let philosophers() =
 
 [<RPC>]
 let swedish (date: System.DateTime) = date.ToString "yyyy-MM-dd"
+
+type TeaKind = Black | Green | Oolong
+type Tea =
+    {
+        Name: string
+        Kind: TeaKind
+        Night: bool
+        Price: decimal
+    }
+
+let tea name kind night price = { Name = name; Kind = kind; Night = night; Price = price }
+
+[<RPC>]
+let teas() =
+    [|
+        tea "English Breakfast" Black false 4M
+        tea "Long Life" Oolong true 9.5M
+        tea "Gyokuro" Green false 19.5M
+        tea "Quangzhou milk" Oolong false 12M
+    |]
