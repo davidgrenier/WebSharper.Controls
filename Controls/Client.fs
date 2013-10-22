@@ -31,8 +31,7 @@ let renderPhilosopher fn ln age died =
 let renderPhilosophers philosophers =
     let zero = { FirstName = ""; LastName = ""; Age = 0; Died = EcmaScript.Date().ToDotNet() }
 
-    Piglet.Return id
-    <*> Piglet.ManyInit philosophers zero philoPiglet
+    Piglet.ManyInit philosophers zero philoPiglet
     |> Piglet.Render (fun ps ->
         Table [
             ["First Name"; "Last Name"; "Age"; "Died"; "Formatted"]
@@ -73,15 +72,14 @@ let transpose (table: Element) =
         for j = 0 to cols - 1 do
             let row = TR []
             for i = 0 to rows.Length - 1 do
-                row.Append (rows.[i].ChildNodes.[j].CloneNode(true))
+                row.Append(rows.[i].ChildNodes.[j].CloneNode true)
             yield row
     ]
 
 let renderTeas teas =
     let zero = { Name = ""; Kind = Black; Night = false; Price = (EcmaScript.Number 0).ToDotNet() }
 
-    Piglet.Return id
-    <*> Piglet.ManyInit teas zero teaPiglet
+    Piglet.ManyInit teas zero teaPiglet
     |> Piglet.Render (fun teas ->
         Table [
             [""; "Kind"; "Nighttime"; "Price"; "Fromatted"]
@@ -96,6 +94,19 @@ let renderTeas teas =
                 transpose table
             ]
     )
+
+//let teaTransposed teas =
+//    let zero = { Name = ""; Kind = Black; Night = false; Price = (EcmaScript.Number 0).ToDotNet() }
+//
+//    Piglet.Return id
+//    <*> Piglet.ManyInit teas zero teaPiglet
+//    |> Piglet.Render (fun teas ->
+//        let teas =
+//            teas
+//            |> Stream.Map id id
+//
+//        ()
+//    )
 
 let main () =
     Div [
