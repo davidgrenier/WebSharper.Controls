@@ -34,11 +34,13 @@ let renderPhilosophers philosophers =
     Piglet.ManyInit philosophers zero philoPiglet
     |> Piglet.Render (fun ps ->
         Table [
-            ["First Name"; "Last Name"; "Age"; "Died"; "Formatted"]
-            |> List.map (fun lbl -> TH [Text lbl])
-            |> TR
+            THead [
+                ["First Name"; "Last Name"; "Age"; "Died"; "Formatted"]
+                |> List.map (fun lbl -> TH [Text lbl])
+                |> TR
+            ]
+            TBody [] |> C.RenderMany ps (fun _ -> renderPhilosopher)
         ]
-        |> C.RenderMany ps (fun _ -> renderPhilosopher)
     )
 
 let teaPiglet init =
@@ -63,50 +65,20 @@ let renderTea name kind nighttime price =
         TD [] |> C.ShowString price string
     ]
 
-let transpose (table: Element) =
-    let body = table.Dom.FirstChild
-    let rows = body.ChildNodes
-    let cols = rows.[0].ChildNodes.Length
-
-    Table [
-        for j = 0 to cols - 1 do
-            let row = TR []
-            for i = 0 to rows.Length - 1 do
-                row.Append(rows.[i].ChildNodes.[j].CloneNode true)
-            yield row
-    ]
-
 let renderTeas teas =
     let zero = { Name = ""; Kind = Black; Night = false; Price = (EcmaScript.Number 0).ToDotNet() }
 
     Piglet.ManyInit teas zero teaPiglet
     |> Piglet.Render (fun teas ->
         Table [
-            [""; "Kind"; "Nighttime"; "Price"; "Fromatted"]
-            |> List.map (fun lbl -> TH [Text lbl])
-            |> TR
-        ]
-        |> C.RenderMany teas (fun _ -> renderTea)
-        |> fun table ->
-            Div [
-                table
-                Br[]
-                transpose table
+            THead [
+                [""; "Kind"; "Nighttime"; "Price"; "Formatted"]
+                |> List.map (fun lbl -> TH [Text lbl])
+                |> TR
             ]
+            TBody [] |> C.RenderMany teas (fun _ -> renderTea)
+        ]
     )
-
-//let teaTransposed teas =
-//    let zero = { Name = ""; Kind = Black; Night = false; Price = (EcmaScript.Number 0).ToDotNet() }
-//
-//    Piglet.Return id
-//    <*> Piglet.ManyInit teas zero teaPiglet
-//    |> Piglet.Render (fun teas ->
-//        let teas =
-//            teas
-//            |> Stream.Map id id
-//
-//        ()
-//    )
 
 let main () =
     Div [

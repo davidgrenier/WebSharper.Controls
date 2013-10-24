@@ -6,4 +6,17 @@
 
 th, td {
     border: 1px solid #c4c4c4;
+    padding: 3px 6px 3px 6px;
+}
+
+th {
+  background: linear-gradient(#687587, #404853);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 13px;
+  padding: 7px;
+}
+
+tbody tr:nth-child(even) {
+    background: linear-gradient(#f7faf9, #e8eae9);
 }
