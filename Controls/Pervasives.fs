@@ -15,11 +15,11 @@ module Operators =
 [<JS>]
 module Date =
     let (|LessThan|_|) v = function
-        | x when x < v -> Some x
+        | x when x < v -> Some ()
         | _ -> None
     
     let pad = function
-        | LessThan 10 x -> "0" + string x
+        | LessThan 10 & x -> "0" + string x
         | x -> string x
 
     let swedish (date: System.DateTime) =
@@ -27,9 +27,9 @@ module Date =
         let month = pad date.Month
         let year =
             match date.Year with
-            | LessThan 10 x -> "000" + string x
-            | LessThan 100 x -> "00" + string x
-            | LessThan 1000 x -> "0" + string x
+            | LessThan 10 & x -> "000" + string x
+            | LessThan 100 & x -> "00" + string x
+            | LessThan 1000 & x -> "0" + string x
             | x -> string x
 
         year + "-" + month + "-" + day

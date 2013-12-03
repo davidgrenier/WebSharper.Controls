@@ -55,7 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IntelliFactory.WebSharper.Piglets">
-      <HintPath>..\packages\WebSharper.Piglets.0.1.8.62-alpha\lib\net45\IntelliFactory.WebSharper.Piglets.dll</HintPath>
+      <HintPath>..\packages\WebSharper.Piglets.0.1.23.77-alpha\lib\net45\IntelliFactory.WebSharper.Piglets.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />
@@ -65,4 +65,5 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\WebSharper.2.5.76.4-alpha\build\WebSharper.targets" Condition="Exists('..\packages\WebSharper.2.5.76.4-alpha\build\WebSharper.targets')" />
 </Project>
